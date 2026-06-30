@@ -1,0 +1,15 @@
+name = "youware-backend"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "youware"
+database_id = "youware-db"
+
+[env.production]
+name = "youware-backend-prod"
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "youware-prod"
+database_id = "youware-prod-db"
