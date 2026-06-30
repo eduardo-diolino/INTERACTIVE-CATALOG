@@ -12,6 +12,31 @@ export default function SellerView() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  useEffect(() => {
+    if (!authed) return;
+    setLoading(true);
+    loadOrders()
+      .then((items) => {
+        setOrders(items);
+        setErrorMsg("");
+      })
+      .catch((error) => {
+        console.error(error);
+        setErrorMsg("Não foi possível carregar as seleções.");
+      })
+      .finally(() => setLoading(false));
+  }, [authed]);
+
+  const handleClear = async () => {
+    try {
+      await clearOrders();
+      setOrders([]);
+    } catch (error) {
+      console.error(error);
+      alert("Não foi possível limpar as seleções. Tente novamente.");
+    }
+  };
+
   if (!authed) {
     return (
       <div className="min-h-screen bg-[#F6F4F1] flex items-center justify-center">
@@ -50,31 +75,6 @@ export default function SellerView() {
       </div>
     );
   }
-
-  useEffect(() => {
-    if (!authed) return;
-    setLoading(true);
-    loadOrders()
-      .then((items) => {
-        setOrders(items);
-        setErrorMsg("");
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorMsg("Não foi possível carregar as seleções.");
-      })
-      .finally(() => setLoading(false));
-  }, [authed]);
-
-  const handleClear = async () => {
-    try {
-      await clearOrders();
-      setOrders([]);
-    } catch (error) {
-      console.error(error);
-      alert("Não foi possível limpar as seleções. Tente novamente.");
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#F6F4F1]">
