@@ -8,6 +8,9 @@ export default function SellerView() {
   const [authed, setAuthed] = useState(localStorage.getItem("seller_auth") === "true");
   const [pw, setPw] = useState("");
   const [error, setError] = useState("");
+  const [orders, setOrders] = useState<SelectionItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   if (!authed) {
     return (
@@ -47,10 +50,6 @@ export default function SellerView() {
       </div>
     );
   }
-
-  const [orders, setOrders] = useState<SelectionItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (!authed) return;

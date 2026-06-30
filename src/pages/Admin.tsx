@@ -6,7 +6,7 @@ import { SizeManager } from "../components/SizeManager";
 
 const PASSWORD = "QWEASD";
 
-function emptyColor(): ColorOption { return { name: "", hex: "#000000", image: "" }; }
+function emptyColor(): ColorOption { return { name: "Nova cor", hex: "#000000", image: "" }; }
 
 function newProduct(): Product {
   return {
@@ -120,7 +120,20 @@ export default function Admin() {
   };
 
   const saveAll = async () => {
+    const invalidProduct = items.some((item) =>
+      !item.model.trim() ||
+      typeof item.price !== "number" ||
+      item.sizes.some((size) => !size.trim()) ||
+      item.colors.some((color) => !color.name.trim() || !color.hex.trim())
+    );
+
+    if (invalidProduct) {
+      setErrorMsg("Preencha todos os campos obrigatórios e nomes de cor antes de salvar.");
+      return;
+    }
+
     try {
+      setErrorMsg("");
       setLoading(true);
       await saveAllProducts(items.map((item) => ({
         ...item,
