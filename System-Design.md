@@ -58,10 +58,3 @@ This project is a modern web catalog where customers choose the style, color, an
 1. Improve the UX of the password screens and loading/error states.
 2. Bulk import (CSV) and advanced management (filters, search, sorting).
 3. Premium animations (Framer Motion/Reactbits) and visual refinements.
-
-## Notes
-- SPA routes: use `vite preview` to test the build with fallback.
-- Security: Passwords in `localStorage` are a workaround; implement backend authentication for production environments.
-- Backend: Worker in `backend/` with endpoints `/products` and `/orders`; all calls use `https://backend.youware.com`.
-
-Translated with DeepL.com (free version)
